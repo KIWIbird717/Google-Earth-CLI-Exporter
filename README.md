@@ -220,3 +220,7 @@ node scripts/convert-lat-long-to-octant.example.js
 - `start` - запуск скомпилированного приложения
 - `type-check` - проверка типов без компиляции
 - `lint` - проверка кода с ESLint
+
+## Fork
+
+Fork from repository: https://github.com/retroplasma/earth-reverse-engineering
