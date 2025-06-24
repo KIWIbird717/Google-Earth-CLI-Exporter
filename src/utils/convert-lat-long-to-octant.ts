@@ -329,10 +329,9 @@ export class OctantConverter {
   private currentLon: number = 0;
 
   /**
-   * Конвертирует bbox в октанты
-   * @param bbox - BBox для конвертации
-   * @param maxLevel - Максимальный уровень глубины октантов
-   * @returns Объект с найденными октантами по уровням
+   * Convert bbox (selected square on map) to octants
+   * @param bbox - выделенная зона на карте
+   * @param maxLevel - уровень детализации
    */
   public async convertBBoxToOctants(bbox: BBox, maxLevel: number): Promise<FoundOctants> {
     this.validateBBox(bbox);
@@ -341,22 +340,18 @@ export class OctantConverter {
     const foundOctants: FoundOctants = {};
     const { northEast, southWest } = bbox;
 
-    // Вычисляем размер октанта для максимального уровня
-    // На уровне 20 октант имеет размер примерно 0.001 градуса
-    const octantSize = 0.0002; // примерный размер октанта 20-го уровня
+    // Размера октанта на уровне 20 в градусах
+    const octantSize = 0.0001;
 
-    // Создаем сетку точек с шагом размера октанта
+    // сетка точек с шагом размера октанта
     const latStep = octantSize;
     const lonStep = octantSize;
 
-    // Проходим по всем точкам в bbox
     for (let lat = southWest.lat; lat <= northEast.lat; lat += latStep) {
       for (let lon = southWest.lon; lon <= northEast.lon; lon += lonStep) {
         try {
-          // Получаем октанты для текущей точки
           const pointOctants = await this.convertLatLongToOctant(lat, lon, maxLevel);
 
-          // Объединяем результаты
           for (const [level, levelData] of Object.entries(pointOctants)) {
             const levelNum = parseInt(level);
 
@@ -367,7 +362,6 @@ export class OctantConverter {
               };
             }
 
-            // Добавляем уникальные октанты
             for (const octant of levelData.octants) {
               if (!foundOctants[levelNum].octants.includes(octant)) {
                 foundOctants[levelNum].octants.push(octant);
@@ -376,7 +370,6 @@ export class OctantConverter {
           }
         } catch (error) {
           console.error(`Error processing point ${lat}, ${lon}:`, error);
-          // Продолжаем обработку других точек
         }
       }
     }
