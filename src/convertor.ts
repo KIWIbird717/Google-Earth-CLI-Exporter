@@ -6,7 +6,7 @@ function dmsToDecimal(degrees: string, minutes: string, seconds: string, directi
   return decimal;
 }
 
-function parseDMS(input: string) {
+export function parseDMS(input: string) {
   const regex = /(\d+)°(\d+)'(\d+)"?([NSEW])/g;
   const matches = [...input.matchAll(regex)];
 
@@ -22,6 +22,6 @@ function parseDMS(input: string) {
   return { latitude: lat, longitude: lon };
 }
 
-const input = `43°43'23"N 10°23'45"E`;
-const result = parseDMS(input);
-console.log(`Decimal coordinates: ${result.latitude.toFixed(6)}, ${result.longitude.toFixed(6)}`);
+// const input = `43°43'23"N 10°23'45"E`;
+// const result = parseDMS(input);
+// console.log(`Decimal coordinates: ${result.latitude.toFixed(6)}, ${result.longitude.toFixed(6)}`);

@@ -1,43 +1,19 @@
-import path from 'path';
-import { UtilsConfig, Utils } from '../types';
+import { parseDMS } from './convertor';
+import { CoordinatesToOctants } from './coordinates-to-octants';
+import { DumpObjApp } from './dump-obj';
 
-class ConfigService {
-  private readonly PLANET = 'earth';
-  private readonly URL_PREFIX = `https://kh.google.com/rt/${this.PLANET}/`;
-  private readonly DL_DIR = './downloaded_files';
+(async () => {
+  const app = new DumpObjApp();
 
-  private readonly DUMP_OBJ_DIR = path.join(this.DL_DIR, 'obj');
-  private readonly DUMP_JSON_DIR = path.join(this.DL_DIR, 'json');
-  private readonly DUMP_RAW_DIR = path.join(this.DL_DIR, 'raw');
+  const northEast = parseDMS(`43°43'26"N 10°23'49"E`);
+  const southWest = parseDMS(`43°43'21"N 10°23'34"E`);
 
-  /**
-   * Gets the configuration for utils
-   * @returns UtilsConfig object
-   */
-  public getUtilsConfig(): UtilsConfig {
-    return {
-      URL_PREFIX: this.URL_PREFIX,
-      DUMP_JSON_DIR: this.DUMP_JSON_DIR,
-      DUMP_RAW_DIR: this.DUMP_RAW_DIR,
-      DUMP_JSON: false,
-      DUMP_RAW: false,
-    };
-  }
-}
-
-class SearchService {
-  private utils: Utils;
-
-  constructor(utils: Utils) {
-    this.utils = utils;
-  }
-
-  /**
-   * Initializes the search service
-   */
-  public async init(): Promise<void> {
-    // Implementation will be added here
-  }
-}
-
-export { ConfigService, SearchService };
+  const data = await CoordinatesToOctants.convertBbox(
+    {
+      northEast: { lat: northEast.latitude, lon: northEast.longitude },
+      southWest: { lat: southWest.latitude, lon: southWest.longitude },
+    },
+    20,
+  );
+  await app.run(data['20'].octants, 20);
+})();
