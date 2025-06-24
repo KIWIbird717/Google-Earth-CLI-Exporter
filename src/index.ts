@@ -5,8 +5,8 @@ import { DumpObjApp } from './dump-obj';
 (async () => {
   const app = new DumpObjApp();
 
-  const northEast = parseDMS(`43°43'27"N 10°23'50"E`);
-  const southWest = parseDMS(`43°43'21"N 10°23'33"E`);
+  const northEast = parseDMS(`43°43'25"N 10°23'49"E`);
+  const southWest = parseDMS(`43°43'21"N 10°23'34"E`);
 
   const data = await CoordinatesToOctants.convertBbox(
     {
