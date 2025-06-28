@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/preview.png" alt="3D Earth Exporter Preview" width="100%" style="border-radius: 8px;" />
+  <img src="assets/preview.jpeg" alt="3D Earth Exporter Preview" width="100%" style="border-radius: 8px;" />
 </p>
 
 <h1 align="center">🌍 Google Earth 3D Exporter CLI</h1>
@@ -55,7 +55,7 @@ You can export a region using latitude and longitude bounds.
 > 📌 **Note**: Google Earth uses _octants_ to load tiles. You can enable octant grid via:
 > `View > Show Grid` or press `Cmd + G` / `Ctrl + G`. The area for export is formed by two diagonal corners of the bounding box as in the example in the photo below.
 
-  <img src="assets/select-aria.png" alt="3D Earth Exporter Preview" width="100%" style="border-radius: 8px;" />
+  <img src="assets/select-aria.jpeg" alt="3D Earth Exporter Preview" width="100%" style="border-radius: 8px;" />
 
 > To run export you have to paste coordinates as following: `--bbox=lat1:long1;lat2:long2` marking special characters with slashes `\`
 
@@ -98,11 +98,11 @@ Now you can use it without installing Node.js:
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="assets/screenshot1.png" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
-  <img src="assets/screenshot2.png" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
-  <img src="assets/screenshot3.png" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
-  <img src="assets/screenshot4.png" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
-  <img src="assets/screenshot5.png" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
+  <img src="assets/screenshot1.jpeg" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
+  <img src="assets/screenshot2.jpeg" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
+  <img src="assets/screenshot3.jpeg" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
+  <img src="assets/screenshot4.jpeg" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
+  <img src="assets/screenshot5.jpeg" width="600" alt="Exported Model Preview" style="border-radius: 8px;" />
 </p>
 
 ## 🙏 Credits
