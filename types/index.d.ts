@@ -31,8 +31,8 @@ export interface RetryOptions {
 // Типы для utils.js
 export interface UtilsConfig {
   URL_PREFIX: string;
-  DUMP_JSON_DIR: string;
-  DUMP_RAW_DIR: string;
+  DUMP_JSON_DIR: string | null;
+  DUMP_RAW_DIR: string | null;
   DUMP_JSON: boolean;
   DUMP_RAW: boolean;
 }

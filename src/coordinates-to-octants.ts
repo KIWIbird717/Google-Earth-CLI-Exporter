@@ -1,7 +1,9 @@
 import { MAX_OCTANT_LEVEL, URL_PREFIX } from './constants/constants';
+import { Bbox as GlobalBbox } from './types/types';
 import { BBox, FoundOctants, OctantConverter } from './utils/convert-lat-long-to-octant';
+import initUtils from './utils/utils';
 
-const utils = require('./utils/utils')({
+const utils = initUtils({
   URL_PREFIX,
   DUMP_JSON_DIR: null,
   DUMP_RAW_DIR: null,
@@ -16,19 +18,11 @@ export class CoordinatesToOctants {
     return await converter.convertLatLongToOctant(latitude, longitude, MAX_OCTANT_LEVEL);
   }
 
-  public static async convertBbox(bbox: BBox, maxLevel: number): Promise<FoundOctants> {
-    return await converter.convertBBoxToOctants(bbox, maxLevel);
+  public static async convertBbox(bbox: GlobalBbox, maxLevel: number): Promise<FoundOctants> {
+    const serializedBbox: BBox = {
+      northEast: { lat: bbox[0].latitude, lon: bbox[0].longitude },
+      southWest: { lat: bbox[1].latitude, lon: bbox[1].longitude },
+    };
+    return await converter.convertBBoxToOctants(serializedBbox, maxLevel);
   }
 }
-
-// (async () => {
-//   // const data = await CoordinatesToOctants.convert(43.723056, 10.395833);
-//   const data = await CoordinatesToOctants.convertBbox(
-//     {
-//       northEast: { lat: 43.723889, lon: 10.396389 },
-//       southWest: { lat: 43.722222, lon: 10.393056 },
-//     },
-//     20,
-//   );
-//   console.log(data);
-// })();

@@ -1,3 +1,5 @@
+import { Coordinates } from './types/types';
+
 function dmsToDecimal(degrees: string, minutes: string, seconds: string, direction: string) {
   let decimal = parseFloat(degrees) + parseFloat(minutes) / 60 + parseFloat(seconds) / 3600;
   if (direction === 'S' || direction === 'W') {
@@ -6,7 +8,11 @@ function dmsToDecimal(degrees: string, minutes: string, seconds: string, directi
   return decimal;
 }
 
-export function parseDMS(input: string) {
+/**
+ * @example
+ * parseDMS(`43°43'23"N 10°23'45"E`) // { latitude: 43.723055555555554, longitude: 10.395833333333332 }
+ */
+export function parseDMS(input: string): Coordinates {
   const regex = /(\d+)°(\d+)'(\d+)"?([NSEW])/g;
   const matches = [...input.matchAll(regex)];
 
@@ -21,7 +27,3 @@ export function parseDMS(input: string) {
 
   return { latitude: lat, longitude: lon };
 }
-
-// const input = `43°43'23"N 10°23'45"E`;
-// const result = parseDMS(input);
-// console.log(`Decimal coordinates: ${result.latitude.toFixed(6)}, ${result.longitude.toFixed(6)}`);

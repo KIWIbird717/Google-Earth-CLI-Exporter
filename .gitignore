@@ -1,2 +1,4 @@
 node_modules
-downloaded_files/
+downloaded_files/*
+build
+dist

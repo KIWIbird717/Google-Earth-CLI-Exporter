@@ -1,8 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { decodeTexture } from './utils/decode-texture';
-import parseCommandLine = require('./utils/parse-command-line');
-import initUtils = require('./utils/utils');
+import initUtils from './utils/utils';
 import type { Node, Mesh, ObjContext, NodeCheckResult, Bulk } from '../types';
 import { URL_PREFIX, DL_DIR } from './constants/constants';
 
@@ -389,17 +388,18 @@ export class DumpObjApp {
   private objWriter?: ObjWriter;
   private octantsCount = 0;
 
-  async run(octants: string[], maxLevel: number): Promise<void> {
+  async run(octants: string[], maxLevel: number): Promise<string | undefined> {
     const planetoid = await getPlanetoid();
+    let modelOutDir: string | undefined;
 
     const rootEpoch = planetoid.bulkMetadataEpoch[0];
 
     if (DUMP_OBJ) {
       const octName = octants.length > 3 ? `${octants.slice(0, 3).join('+')}+etc` : octants.join('+');
-      const objDir = path.join(DUMP_OBJ_DIR, `${octName}-${maxLevel}-${rootEpoch}`);
-      fs.removeSync(objDir);
-      fs.ensureDirSync(objDir);
-      this.objWriter = new ObjWriter(objDir);
+      modelOutDir = path.join(DUMP_OBJ_DIR, `${octName}-${maxLevel}-${rootEpoch}`);
+      fs.removeSync(modelOutDir);
+      fs.ensureDirSync(modelOutDir);
+      this.objWriter = new ObjWriter(modelOutDir);
     }
 
     const searcher = new NodeSearcher(
@@ -414,6 +414,8 @@ export class DumpObjApp {
     }
 
     console.log('octants', this.octantsCount);
+
+    return modelOutDir;
   }
 
   private nodeFound(path: string): void {
@@ -428,78 +430,3 @@ export class DumpObjApp {
     }
   }
 }
-
-// // Main execution
-// (async function program() {
-//   const app = new DumpObjApp();
-//   await app.run(
-//     [
-//       '30426373415242735371',
-//       '30426373415242735375',
-//       '30426373415243624261',
-//       '30426373415243624265',
-//       '30426373415243624270',
-//       '30426373415243624274',
-//       '30426373415243624360',
-//       '30426373415243624364',
-//       '30426373415243624361',
-//       '30426373415243624365',
-//       '30426373415243624371',
-//       '30426373415243624375',
-//       '30426373415243625260',
-//       '30426373415243625264',
-//       '30426373415242735373',
-//       '30426373415242735377',
-//       '30426373415243624263',
-//       '30426373415243624267',
-//       '30426373415243624272',
-//       '30426373415243624276',
-//       '30426373415243624362',
-//       '30426373415243624366',
-//       '30426373415243624363',
-//       '30426373415243624367',
-//       '30426373415243624373',
-//       '30426373415243624377',
-//       '30426373415243625262',
-//       '30426373415243625266',
-//       '30426373415242737153',
-//       '30426373415242737157',
-//       '30426373415243626043',
-//       '30426373415243626047',
-//       '30426373415243626052',
-//       '30426373415243626056',
-//       '30426373415243626412',
-//       '30426373415243626142',
-//       '30426373415243626146',
-//       '30426373415243626143',
-//       '30426373415243626147',
-//       '30426373415243626153',
-//       '30426373415243626157',
-//       '30426373415243627042',
-//       '30426373415243627046',
-//       '30426373415243627402',
-//       '30426373415242737171',
-//       '30426373415242737175',
-//       '30426373415243626061',
-//       '30426373415243626065',
-//       '30426373415243626070',
-//       '30426373415243626074',
-//       '30426373415243626160',
-//       '30426373415243626164',
-//       '30426373415243626161',
-//       '30426373415243626165',
-//       '30426373415243626171',
-//       '30426373415243626175',
-//       '30426373415243627060',
-//       '30426373415243627064',
-//     ],
-//     20,
-//   );
-// })()
-//   .then(() => {
-//     process.exit(0);
-//   })
-//   .catch((e) => {
-//     console.error(e);
-//     process.exit(1);
-//   });
