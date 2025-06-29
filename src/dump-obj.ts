@@ -395,8 +395,7 @@ export class DumpObjApp {
     const rootEpoch = planetoid.bulkMetadataEpoch[0];
 
     if (DUMP_OBJ) {
-      const octName = octants.length > 3 ? `${octants.slice(0, 3).join('+')}+etc` : octants.join('+');
-      modelOutDir = path.join(DUMP_OBJ_DIR, `${octName}-${maxLevel}-${rootEpoch}`);
+      modelOutDir = path.join(DUMP_OBJ_DIR, new Date().toISOString());
       fs.removeSync(modelOutDir);
       fs.ensureDirSync(modelOutDir);
       this.objWriter = new ObjWriter(modelOutDir);

@@ -61,6 +61,8 @@ function scaleMoveObj(file_in: string, file_out: string) {
         console.error(`done. saved as ${file_out}`);
       });
   });
+
+  return file_out;
 }
 
 /**
@@ -87,9 +89,10 @@ export function centerScaleObj(modelPath: string) {
         console.error('New filename if null or undefined');
         continue;
       }
-      console.log('save scaled object');
 
-      scaleMoveObj(j, `${outFilename[0]}.sc.obj`);
+      const savedFilePath = scaleMoveObj(j, `${outFilename[0].replace('.obj', '')}.sc.obj`);
+
+      console.log(`save scaled object to ${savedFilePath}`);
     }
   }
 }
