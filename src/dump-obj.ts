@@ -395,7 +395,8 @@ export class DumpObjApp {
     const rootEpoch = planetoid.bulkMetadataEpoch[0];
 
     if (DUMP_OBJ) {
-      modelOutDir = path.join(DUMP_OBJ_DIR, new Date().toISOString());
+      const timestamp = new Date().toISOString().replace(/:/g, '-');
+      modelOutDir = path.join(DUMP_OBJ_DIR, timestamp);
       fs.removeSync(modelOutDir);
       fs.ensureDirSync(modelOutDir);
       this.objWriter = new ObjWriter(modelOutDir);
