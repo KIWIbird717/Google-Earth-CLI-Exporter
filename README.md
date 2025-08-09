@@ -57,17 +57,19 @@ You can export a region using latitude and longitude bounds.
 
   <img src="assets/select-aria.jpeg" alt="3D Earth Exporter Preview" width="100%" style="border-radius: 8px;" />
 
-> To run export you have to paste coordinates as following: `--bbox=lat1:long1;lat2:long2` marking special characters with slashes `\`
+> To run export you have to paste coordinates as following: `--bbox='SouthWest,NorthEast'` (`--bbox='minLat,minLng,maxLat,maxLng'`)
 
-> For example: First point coordinates - `43°43'26"N 10°23'49"E` Second point coordinates - `43°43'21"N 10°23'34"E` Shod create string: `--bbox=43\°43\'26\"N:10\°23\'49\"E\;43\°43\'21\"N:10\°23\'34\"E`
+> For example: `--bbox='43.72247467873372,10.392798185348513,43.72386257277956,10.396832227706911'`
+
+> You can select exported aria and copy valid coordinates, using this tools: [Map Bridge Web Interface](https://github.com/KIWIbird717/_Map-Bridge-Web-Interface), [OSM Export](https://www.openstreetmap.org/export)
 
 Run:
 
-```bash
-npx ts-node ./src/index.ts --bbox=43\°43\'26\"N:10\°23\'49\"E\;43\°43\'21\"N:10\°23\'34\"E
-```
+Use bbox format
 
-Use degrees-minutes-seconds format, separated by a semicolon (`;`) for two diagonal corners of the bounding box.
+```bash
+npx ts-node ./src/index.ts --bbox='43.72247467873372,10.392798185348513,43.72386257277956,10.396832227706911'
+```
 
 ---
 
