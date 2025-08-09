@@ -16,16 +16,16 @@ const argv = yargs(hideBin(process.argv))
   .parseSync();
 
 function parseBBox(bboxStr: string): { bbox: Bbox } {
-  const [minLongitude, minLatitude, maxLongitude, maxLatitude] = bboxStr.split(',').map(Number);
+  const [minLat, minLng, maxLat, maxLng] = bboxStr.replace(' ', '').split(',').map(Number);
 
-  if (!minLongitude || !minLatitude || !maxLongitude || !maxLatitude) {
+  if (!minLat || !minLng || !maxLat || !maxLng) {
     throw new Error('Wrong --bbox forma. Use lat1:lon1;lat2:lon2');
   }
 
   return {
     bbox: [
-      { longitude: minLongitude, latitude: minLatitude },
-      { longitude: maxLongitude, latitude: maxLatitude },
+      { longitude: maxLng, latitude: maxLat },
+      { longitude: minLng, latitude: minLat },
     ],
   };
 }
