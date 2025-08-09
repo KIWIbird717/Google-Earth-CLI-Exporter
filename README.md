@@ -78,6 +78,7 @@ npx ts-node ./src/index.ts --bbox='43.72247467873372,10.392798185348513,43.72386
 You can compile the entire project into a single executable file for your platform.
 
 ```bash
+npm install -g pkg
 npm run pkg
 ```
 
