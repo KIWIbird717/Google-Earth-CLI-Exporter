@@ -16,24 +16,24 @@ const argv = yargs(hideBin(process.argv))
   .parseSync();
 
 function parseBBox(bboxStr: string): { bbox: Bbox } {
-  const [point1, point2] = bboxStr.split(';');
+  const [minLongitude, minLatitude, maxLongitude, maxLatitude] = bboxStr.split(',').map(Number);
 
-  if (!point1 || !point2) {
+  if (!minLongitude || !minLatitude || !maxLongitude || !maxLatitude) {
     throw new Error('Wrong --bbox forma. Use lat1:lon1;lat2:lon2');
   }
 
-  const [lat1Str, lon1Str] = point1.split(':');
-  const [lat2Str, lon2Str] = point2.split(':');
-
-  const corner1 = parseDMS(`${lat1Str} ${lon1Str}`);
-  const corder2 = parseDMS(`${lat2Str} ${lon2Str}`);
-
-  return { bbox: [corner1, corder2] };
+  return {
+    bbox: [
+      { longitude: minLongitude, latitude: minLatitude },
+      { longitude: maxLongitude, latitude: maxLatitude },
+    ],
+  };
 }
 
 async function bootstrap() {
   // selected aria coordinates
   const { bbox } = parseBBox(argv.bbox);
+
   const app = new DumpObjApp();
 
   const data = await CoordinatesToOctants.convertBbox(bbox, 20);
