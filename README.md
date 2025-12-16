@@ -52,6 +52,7 @@ npm install
 
 You can export a region using latitude and longitude bounds.
 
+> [!NOTE]
 > 📌 **Note**: Google Earth uses _octants_ to load tiles. You can enable octant grid via:
 > `View > Show Grid` or press `Cmd + G` / `Ctrl + G`. The area for export is formed by two diagonal corners of the bounding box as in the example in the photo below.
 
